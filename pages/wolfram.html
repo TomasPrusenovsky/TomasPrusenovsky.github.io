@@ -1,36 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="styles.css">
-  <title>Wolfram</title>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <title>Wolfram</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 </head>
 <body>
-  <h2>Parcialní zlomky</h2>
-  <div>
+<h2>Parcialní zlomky</h2>
+<div>
     <a href="https://www.wolframalpha.com/input?i2d=true&i=Divide%5B2x%2B1%2CPower%5Bx%2C3%5D-x%5D">
-      \[
+        \[
         \frac{2x + 1}{x^3 - 1}
-      \]
+        \]
     </a>
-  </div>
+</div>
 
-  <div>
+<div>
     <a href="https://www.wolframalpha.com/input?i2d=true&i=Divide%5BPower%5Bx%2C2%5D-x+-1%2CPower%5Bx%2C3%5D-2Power%5Bx%2C2%5D%2Bx%5D">
-      \[
-      \frac{x^2 - x - 1}{x^3 - 2x^2 + x}
-      \]
+        \[
+        \frac{x^2 - x - 1}{x^3 - 2x^2 + x}
+        \]
     </a>
-  </div>
+</div>
 
-  <div>
+<div>
     <a href="https://www.wolframalpha.com/input?i2d=true&i=%5Cfrac%5C%28123%292Power%5Bx%2C3%5D+-+x+-+2%5C%28125%29%5C%28123%29Power%5Bx%2C4%5D+-+Power%5Bx%2C3%5D+%2B+Power%5Bx%2C2%5D%5C%28125%29">
-      \[
-      \frac{2x^3 - x - 2}{x^4 - x^3 + x^2}
-      \]
+        \[
+        \frac{2x^3 - x - 2}{x^4 - x^3 + x^2}
+        \]
     </a>
-  </div>
+</div>
+
+<h2>Integrování parciálních zlomků</h2>
+<div>
+    <a href="https://www.wolframalpha.com/input?i2d=true&i=%5Cint+%5Cfrac%5C%28123%292x+%2B+1%5C%28125%29%5C%28123%29Power%5Bx%2C3%5D+-+x%5C%28125%29+%5C%5C%2844%29+dx">
+        \[
+        \int \frac{2x + 1}{x^3 - x} \, dx = \int \left( -\frac{1}{x} + \frac{3}{2(x - 1)} - \frac{1}{2(x + 1)} \right) dx = -\ln|x| + \frac{3}{2} \ln|x - 1| - \frac{1}{2} \ln|x + 1| + C
+        \]
+    </a>
+</div>
+<div>
+    <a href="https://www.wolframalpha.com/input?i2d=true&i=%5Cint+%5Cfrac%5C%28123%29Power%5Bx%2C2%5D+-+x+-+1%5C%28125%29%5C%28123%29Power%5Bx%2C3%5D+-+2Power%5Bx%2C2%5D+%2B+x%5C%28125%29+%5C%5C%2844%29+dx">
+        \[
+        \int \frac{x^2 - x - 1}{x^3 - 2x^2 + x} \, dx = \int \left( -\frac{1}{x} + \frac{2}{x - 1} - \frac{1}{(x - 1)^2} \right) dx = -\ln|x| + 2\ln|x - 1| + \frac{1}{x - 1} + C
+        \]
+    </a>
+</div>
+<div>
+    <a href="https://www.wolframalpha.com/input?i2d=true&i=%5Cint+%5Cfrac%5C%28123%292Power%5Bx%2C3%5D+%2B+x+%2B+2%5C%28125%29%5C%28123%29Power%5Bx%2C4%5D+%2B+Power%5Bx%2C3%5D+%2B+Power%5Bx%2C2%5D%5C%28125%29+%5C%5C%2844%29+dx">
+        \[
+        \int \frac{2x^3 + x + 2}{x^4 + x^3 + x^2} \, dx = \int \left( \frac{2}{x^2} - \frac{1}{x} + \frac{3x - 1}{x^2 + x + 1} \right) dx
+        \]
+        \[
+        = -2 \frac{1}{x} - \ln|x| + \frac{3}{2} \ln|x^2 + x + 1| - \frac{5\sqrt{3}}{3} arctg\left(\frac{2x + 1}{\sqrt{3}}\right) + C
+        \]
+    </a>
+</div>
+
 </body>
 </html>
