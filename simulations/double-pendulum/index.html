@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dvojité kyvadlo - Simulace</title>
+    
+    <link rel="stylesheet" href="../../shared/css/style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.13/lib/p5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.13/lib/addons/p5.sound.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <style>
+        .panel-nastroju {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .checkbox-group {
+            flex-direction: row;
+            align-items: center;
+        }
+        .layout-rozdeleni {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        #kontejner-kyvadla, #graf-kontejner {
+            flex: 1;
+            min-width: 300px;
+            height: 500px;
+            border-radius: 8px;
+            overflow: hidden;
+                background: #141414;
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <h1 class="simulation-title">Interaktivní simulace: Dvojité kyvadlo</h1>
+        <p>Pomocí sliderů můžete měnit parametry systému a sledovat vývoj v konfiguračním prostoru.</p>
+        
+        <div class="panel-nastroju">
+            <div class="control-group">
+                <label>Hmotnost 1: <span id="valM1">10</span></label>
+                <input type="range" id="sliderM1" min="1" max="50" value="10">
+            </div>
+            <div class="control-group">
+                <label>Hmotnost 2: <span id="valM2">10</span></label>
+                <input type="range" id="sliderM2" min="1" max="50" value="10">
+            </div>
+            <div class="control-group">
+                <label>Délka 1: <span id="valL1">150</span></label>
+                <input type="range" id="sliderL1" min="50" max="300" step="10" value="150">
+            </div>
+            <div class="control-group">
+                <label>Délka 2: <span id="valL2">150</span></label>
+                <input type="range" id="sliderL2" min="50" max="300" step="10" value="150">
+            </div>
+            <div class="control-group">
+                <label>Úhel 1 (poč.): <span id="valTh1">90</span>°</label>
+                <input type="range" id="sliderTh1" min="-180" max="180" value="90">
+            </div>
+            <div class="control-group">
+                <label>Úhel 2 (poč.): <span id="valTh2">90</span>°</label>
+                <input type="range" id="sliderTh2" min="-180" max="180" value="90">
+            </div>
+            <div class="control-group">
+                <label>Rychlost 1 (poč.): <span id="valOm1">0</span></label>
+                <input type="range" id="sliderOm1" min="-10" max="10" step="0.1" value="0">
+            </div>
+            <div class="control-group">
+                <label>Rychlost 2 (poč.): <span id="valOm2">0</span></label>
+                <input type="range" id="sliderOm2" min="-10" max="10" step="0.1" value="0">
+            </div>
+            <div class="control-group">
+                <label>Rychlost času: <span id="valSpeed">1</span>x</label>
+                <input type="range" id="sliderSpeed" min="0.1" max="5" step="0.1" value="1">
+            </div>
+            <div class="control-group checkbox-group">
+                <input type="checkbox" id="checkboxTrace" checked>
+                <label for="checkboxTrace">Kreslit trasu do grafu i na plátno</label>
+            </div>
+            <div class="control-group" style="justify-content: flex-end;">
+                <button id="btnPause" class="btn" style="width: 100%; margin-bottom: 5px; background-color: #555;">Pozastavit</button>
+                <button id="btnReset" class="btn" style="width: 100%;">Nastavit a restartovat</button>
+            </div>
+        </div>
+
+        <div class="layout-rozdeleni">
+            <div id="kontejner-kyvadla"></div>
+            <div id="graf-kontejner"></div>
+        </div>
+    </main>
+
+    <script src="physics.js"></script>
+    <script src="sketch.js"></script>
+
+</body>
+</html>

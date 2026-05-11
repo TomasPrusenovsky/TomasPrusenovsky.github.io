@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vysvětlení: Od rovnice k simulaci</title>
+    
+    <link rel="stylesheet" href="../shared/css/style.css">
+    
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+    <style>
+        .explanation-content {
+            background: var(--card-bg, #ffffff);
+            color: var(--text, #333);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        .explanation-content h2 {
+            border-bottom: 2px solid #e4002b;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            color: var(--primary, #003366);
+        }
+        .explanation-content code {
+            background-color: #f1f1f1;
+            color: #d63384;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <h1 class="simulation-title">Od pohybové rovnice k numerické simulaci</h1>
+        <p>Tato stránka vysvětluje, jak se z teoretické pohybové rovnice jednoduchého kyvadla dostaneme k funkční simulaci pomocí numerické metody Runge-Kutta 4. řádu (RK4).</p>
+        
+        <div class="explanation-content">
+            <h2>1. Pohybová rovnice jednoduchého kyvadla</h2>
+            <p>
+                Pohyb jednoduchého kyvadla (hmotný bod o hmotnosti $m$ na nehmotném závěsu délky $L$ v tíhovém poli $g$) lze popsat pomocí druhého Newtonova zákona nebo elegantněji pomocí Lagrangeova formalismu. Výsledkem je diferenciální rovnice druhého řádu, která popisuje změnu úhlu $\theta$ v čase:
+            </p>
+            $$ \ddot{\theta} + \frac{g}{L} \sin(\theta) = 0 $$
+            <p>
+                Kde $\ddot{\theta}$ značí druhou derivaci úhlu $\theta$ podle času (úhlové zrychlení). Tuto rovnici obvykle přepisujeme do tvaru:
+            </p>
+            $$ \ddot{\theta} = -\frac{g}{L} \sin(\theta) $$
+            <p>
+                Tato rovnice je nelineární kvůli funkci $\sin(\theta)$, což znamená, že pro ni neexistuje jednoduché analytické řešení (kromě aproximace pro malé úhly, kde $\sin(\theta) \approx \theta$). Pro přesnou simulaci musíme použít numerické metody.
+            </p>
+
+            <h2>2. Převod na soustavu rovnic 1. řádu</h2>
+            <p>
+                Většina standardních numerických metod, včetně RK4, je navržena pro řešení soustav diferenciálních rovnic prvního řádu. Naši rovnici druhého řádu musíme tedy převést. To uděláme zavedením nové proměnné, úhlové rychlosti $\omega$.
+            </p>
+            <p>
+                Definujeme stavový vektor systému $\mathbf{y}$ jako:
+            </p>
+            $$ \mathbf{y} = \begin{bmatrix} \theta \\ \omega \end{bmatrix} $$
+            <p>
+                Nyní můžeme napsat soustavu dvou rovnic prvního řádu. První rovnice je samotná definice úhlové rychlosti:
+            </p>
+            $$ \dot{\theta} = \omega $$
+            <p>
+                Druhá rovnice vychází z původní pohybové rovnice, kde $\ddot{\theta}$ je $\dot{\omega}$:
+            </p>
+            $$ \dot{\omega} = -\frac{g}{L} \sin(\theta) $$
+            <p>
+                Celou soustavu můžeme zapsat ve vektorovém tvaru $\dot{\mathbf{y}} = f(t, \mathbf{y})$:
+            </p>
+            $$ \frac{d}{dt} \begin{bmatrix} \theta \\ \omega \end{bmatrix} = \begin{bmatrix} \omega \\ -\frac{g}{L} \sin(\theta) \end{bmatrix} $$
+            <p>
+                Funkce $f$ na pravé straně nám pro jakýkoliv stav $[\theta, \omega]$ vrací jeho časové derivace (rychlosti změny). Právě tuto funkci budeme "krmit" do algoritmu RK4.
+            </p>
+
+            <h2>3. Metoda Runge-Kutta 4. řádu (RK4)</h2>
+            <p>
+                Metoda RK4 je iterační proces. Známe-li stav systému $\mathbf{y}_n$ v čase $t_n$, můžeme odhadnout stav $\mathbf{y}_{n+1}$ v čase $t_n + h$ (kde $h$ je malý časový krok, v kódu <code>dt</code>). RK4 to dělá tak, že vypočítá čtyři pomocné "směry" (k-koeficienty) a z nich vytvoří vážený průměr, který je mnohem přesnější než jednoduchá Eulerova metoda.
+            </p>
+            <p>Vzorce pro jeden krok RK4 jsou následující:</p>
+            $$ \mathbf{k}_1 = f(t_n, \mathbf{y}_n) $$
+            $$ \mathbf{k}_2 = f(t_n + \frac{h}{2}, \mathbf{y}_n + h\frac{\mathbf{k}_1}{2}) $$
+            $$ \mathbf{k}_3 = f(t_n + \frac{h}{2}, \mathbf{y}_n + h\frac{\mathbf{k}_2}{2}) $$
+            $$ \mathbf{k}_4 = f(t_n + h, \mathbf{y}_n + h\mathbf{k}_3) $$
+            <p>
+                Nový stav je pak:
+            </p>
+            $$ \mathbf{y}_{n+1} = \mathbf{y}_n + \frac{h}{6}(\mathbf{k}_1 + 2\mathbf{k}_2 + 2\mathbf{k}_3 + \mathbf{k}_4) $$
+            <p>
+                V naší simulaci je tento postup implementován v souboru <code>physics.js</code> ve funkci <code>stepRK4</code>. Funkce <code>getDerivatives</code> odpovídá naší funkci $f(t, \mathbf{y})$. V každém kroku animace (funkce <code>draw</code>) se zavolá <code>stepRK4</code>, která posune stav kyvadla o malý kousek v čase, a my pak tento nový stav vykreslíme.
+            </p>
+        </div>
+        <div class="card-action" style="margin-top: 20px;">
+            <a href="../index.html" class="btn">Zpět na hlavní stránku</a>
+        </div>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaktivní Fyzika | Lagrangeova Mechanika</title>
+    
+    <link rel="stylesheet" href="shared/css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Interaktivní Lagrangeova Mechanika</h1>
+        <p>Sbírka fyzikálních simulací a analytických řešení</p>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h2>O projektu</h2>
+            <p>
+                Tento web slouží jako interaktivní doplněk k dokumentaci Lagrangeova formalismu. 
+                Cílem je demonstrovat eleganci Eulerových-Lagrangeových rovnic na praktických příkladech, 
+                od jednoduchého kyvadla až po chaotické systémy a robotické manipulátory. 
+                Všechny simulace využívají numerickou integraci 4. řádu (Runge-Kutta) pro zajištění vysoké přesnosti.
+            </p>
+        </section>
+
+        <div class="simulations-grid">
+            <article class="card">
+                <div class="card-content">
+                    <span class="tag">Chaos & Dynamika</span>
+                    <h2>Dvojité kyvadlo</h2>
+                    <p>Klasický příklad chaotického systému se dvěma stupni volnosti. Sledujte citlivost na počáteční podmínky a trajektorii koncového bodu.</p>
+                </div>
+                <div class="card-action">
+                    <a href="simulations/double-pendulum/index.html" class="btn">Spustit simulaci</a>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-content">
+                    <span class="tag">Základy Mechaniky</span>
+                    <h2>Jednoduché kyvadlo</h2>
+                    <p>Základní příklad pro demonstraci Lagrangeovy mechaniky. Model ukazuje pohyb hmotného bodu zavěšeného na nehmotném vlákně v homogenním tíhovém poli.</p>
+                </div>
+                <div class="card-action">
+                    <a href="simulations/pendulum/index.html" class="btn">Spustit simulaci</a>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-content">
+                    <span class="tag">Teorie</span>
+                    <h2>Odvození a numerika</h2>
+                    <p>Pochopte matematické pozadí simulací. Tento článek vysvětluje přechod od pohybových rovnic k numerickému řešení metodou Runge-Kutta 4. řádu.</p>
+                </div>
+                <div class="card-action">
+                    <a href="explanation/index.html" class="btn">Přečíst článek</a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Tomáš Prusenovský</p>
+        <p>Univerzita Tomáše Bati ve Zlíně | Fakulta aplikované informatiky</p>
+    </footer>
+
+</body>
+</html>
