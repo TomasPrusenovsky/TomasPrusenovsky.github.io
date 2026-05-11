@@ -73,7 +73,7 @@ function setup() {
   let layout = {
     title: 'Fázový prostor (θ vs ω)',
     xaxis: { title: 'Úhel θ [rad]', range: [-Math.PI, Math.PI] },
-    yaxis: { title: 'Úhlová rychlost ω [rad/s]', range: [-10, 10] },
+    yaxis: { title: 'Úhlová rychlost ω [rad/s]', range: [-1.5, 1.5] },
     margin: { l: 50, r: 20, b: 50, t: 50 }
   };
 

@@ -49,13 +49,40 @@
         <p>Tato stránka vysvětluje, jak se z teoretické pohybové rovnice jednoduchého kyvadla dostaneme k funkční simulaci pomocí numerické metody Runge-Kutta 4. řádu (RK4).</p>
         
         <div class="explanation-content">
-            <h2>1. Pohybová rovnice jednoduchého kyvadla</h2>
+            <h2>1. Odvození pohybové rovnice pomocí Lagrangeova formalismu</h2>
+            <div style="text-align: center; margin: 2rem 0;">
+                <img src="../assets/kyvadlo.svg" alt="Nákres jednoduchého kyvadla" style="max-height: 250px; border-radius: 8px;">
+            </div>
             <p>
-                Pohyb jednoduchého kyvadla (hmotný bod o hmotnosti $m$ na nehmotném závěsu délky $L$ v tíhovém poli $g$) lze popsat pomocí druhého Newtonova zákona nebo elegantněji pomocí Lagrangeova formalismu. Výsledkem je diferenciální rovnice druhého řádu, která popisuje změnu úhlu $\theta$ v čase:
+                Pohyb jednoduchého kyvadla (hmotný bod o hmotnosti $m$ na nehmotném závěsu délky $L$ v tíhovém poli $g$) lze elegantně popsat pomocí Lagrangeových rovnic druhého druhu. Pro sestavení Lagrangeovy funkce $\mathcal{L} = T - V$ potřebujeme nejprve určit kinetickou energii ($T$) a potenciální energii ($V$) systému.
             </p>
-            $$ \ddot{\theta} + \frac{g}{L} \sin(\theta) = 0 $$
             <p>
-                Kde $\ddot{\theta}$ značí druhou derivaci úhlu $\theta$ podle času (úhlové zrychlení). Tuto rovnici obvykle přepisujeme do tvaru:
+                Polohu závaží v kartézských souřadnicích (přičemž počátek umístíme do bodu závěsu) zapíšeme jako:
+            </p>
+            $$ x = L \sin(\theta), \quad y = -L \cos(\theta) $$
+            <p>
+                Kinetická energie závisí na rychlosti. Tu získáme derivací polohy podle času a následným umocněním ($v^2 = \dot{x}^2 + \dot{y}^2$):
+            </p>
+            $$ T = \frac{1}{2} m v^2 = \frac{1}{2} m L^2 \dot{\theta}^2 $$
+            <p>
+                Potenciální energii určíme z vertikální polohy $y$:
+            </p>
+            $$ V = m g y = -m g L \cos(\theta) $$
+            <p>
+                Lagrangeova funkce je tedy rozdílem obou energií:
+            </p>
+            $$ \mathcal{L} = T - V = \frac{1}{2} m L^2 \dot{\theta}^2 + m g L \cos(\theta) $$
+            <p>
+                Nyní tuto funkci dosadíme do Eulerovy-Lagrangeovy rovnice:
+            </p>
+            $$ \frac{d}{dt} \left( \frac{\partial \mathcal{L}}{\partial \dot{\theta}} \right) - \frac{\partial \mathcal{L}}{\partial \theta} = 0 $$
+            <p>
+                Vypočítáme jednotlivé parciální derivace:
+            </p>
+            $$ \frac{\partial \mathcal{L}}{\partial \dot{\theta}} = m L^2 \dot{\theta} \implies \frac{d}{dt} \left( \frac{\partial \mathcal{L}}{\partial \dot{\theta}} \right) = m L^2 \ddot{\theta} $$
+            $$ \frac{\partial \mathcal{L}}{\partial \theta} = -m g L \sin(\theta) $$
+            <p>
+                Z čehož získáme výslednou diferenciální rovnici (po vydělení celé rovnice výrazem $m L^2$ a osamostatnění $\ddot{\theta}$):
             </p>
             $$ \ddot{\theta} = -\frac{g}{L} \sin(\theta) $$
             <p>
